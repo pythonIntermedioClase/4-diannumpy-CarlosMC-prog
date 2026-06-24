@@ -60,7 +60,10 @@ def describir_array(arr):
     """
     # TODO: imprime forma con arr.shape, tipo con arr.dtype,
     #       mínimo con arr.min() y máximo con arr.max()
-    pass
+    print(f"Forma :{arr.shape}")
+    print(f"Tipo :{arr.dtype}")
+    print(f"Minimo :{arr.min()}")
+    print(f"Maximo :{arr.max()}")
 
 
 def crear_array_declaraciones(valores_lista):
@@ -78,7 +81,8 @@ def crear_array_declaraciones(valores_lista):
         -> array([1000000., 500000., 2000000.])
     """
     # TODO: usa np.array con el parámetro dtype=np.float64
-    pass
+    
+    return np.array(valores_lista, dtype=np.float64)
 
 
 def comparar_lista_vs_array(valores_lista):
@@ -102,11 +106,23 @@ def comparar_lista_vs_array(valores_lista):
     """
     # TODO:
     # 1. Calcula el IVA con ciclo for sobre valores_lista y guarda en iva_lista
+    iva_lista=[]
+    for i in valores_lista:
+        iva_lista.append( i * 0.19)
+    
     # 2. Convierte valores_lista a array con np.array
+    arr = np.array(valores_lista)
+    
     # 3. Calcula el IVA multiplicando el array por 0.19 y guarda en iva_array
+    iva_array = arr *0.19
+    
     # 4. Imprime ambos resultados con etiquetas
-    pass
-
+    
+    print("Lista (requiere ciclo for):")
+    print(f"  {iva_lista}")
+    print("Array (operación directa):")
+    print(f"  {iva_array}")
+   
 
 def filtrar_valores_en_rango(valores_lista, minimo, maximo):
     """
@@ -130,12 +146,16 @@ def filtrar_valores_en_rango(valores_lista, minimo, maximo):
     """
     # TODO:
     # 1. Crea una lista vacía para acumular los valores filtrados
+    filtrados=[]
     # 2. Recorre valores_lista con un ciclo for
     # 3. Si minimo <= valor <= maximo, agrégalo con .append()
     # 4. Retorna la lista acumulada
-    pass
-
-
+    for i in filtrados:
+        for valor in valores_lista:
+            if minimo <= valor <= maximo:
+                filtrados.append(valor)
+    return filtrados
+    
 # ===========================================================================
 # SECCIÓN 2: INDEXACIÓN Y SLICING
 # ===========================================================================
