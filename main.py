@@ -11,6 +11,7 @@
 #   4. git add, commit y push al terminar cada sección.
 
 import numpy as np
+import time
 
 from src.numpy_utils import VALORES_DECLARADOS, DIAS_MORA, NITS
 
@@ -51,25 +52,25 @@ def menu_arrays_y_tipos():
     print("\n--- Arrays y tipos de datos ---")
 
     # TODO: descomenta cuando hayas implementado describir_array
-    # print("\n  VALORES_DECLARADOS:")
-    # describir_array(VALORES_DECLARADOS)
-    # print("\n  DIAS_MORA:")
-    # describir_array(DIAS_MORA)
+    print("\n  VALORES_DECLARADOS:")
+    describir_array(VALORES_DECLARADOS)
+    print("\n  DIAS_MORA:")
+    describir_array(DIAS_MORA)
 
     # TODO: descomenta cuando hayas implementado crear_array_declaraciones
-    # lista = [1_200_000, 750_000, 3_100_000]
-    # arr = crear_array_declaraciones(lista)
-    # print(f"\n  Array creado desde lista: {arr}")
-    # print(f"  Tipo: {arr.dtype}")
+    lista = [1_200_000, 750_000, 3_100_000]
+    arr = crear_array_declaraciones(lista)
+    print(f"\n  Array creado desde lista: {arr}")
+    print(f"  Tipo: {arr.dtype}")
 
     # TODO: descomenta cuando hayas implementado comparar_lista_vs_array
-    # valores_lista = [1_500_000, 850_000, 2_300_000, 950_000]
-    # comparar_lista_vs_array(valores_lista)
+    valores_lista = [1_500_000, 850_000, 2_300_000, 950_000]
+    comparar_lista_vs_array(valores_lista)
 
     # TODO: descomenta cuando hayas implementado filtrar_valores_en_rango
-    # valores_lista = [1_500_000, 850_000, 2_300_000, 950_000, 0, 3_200_000]
-    # en_rango = filtrar_valores_en_rango(valores_lista, 500_000, 2_000_000)
-    # print(f"\n  Valores entre 500.000 y 2.000.000: {en_rango}")
+    valores_lista = [1_500_000, 850_000, 2_300_000, 950_000, 0, 3_200_000]
+    en_rango = filtrar_valores_en_rango(valores_lista, 500_000, 2_000_000)
+    print(f"\n  Valores entre 500.000 y 2.000.000: {en_rango}")
 
     print("\n  (función pendiente de implementar)")
 
@@ -79,38 +80,73 @@ def menu_indexacion_slicing():
     print("\n--- Indexación y slicing ---")
 
     # TODO: descomenta cuando hayas implementado obtener_rango
-    # rango = obtener_rango(VALORES_DECLARADOS, 2, 5)
-    # print(f"\n  Posiciones 2 a 4: {rango}")
+    rango = obtener_rango(VALORES_DECLARADOS, 2, 5)
+    print(f"\n  Posiciones 2 a 4: {rango}")
 
     # TODO: descomenta cuando hayas implementado obtener_ultimos
-    # ultimos = obtener_ultimos(VALORES_DECLARADOS, 3)
-    # print(f"\n  Últimos 3 valores: {ultimos}")
+    ultimos = obtener_ultimos(VALORES_DECLARADOS, 3)
+    print(f"\n  Últimos 3 valores: {ultimos}")
 
     # TODO: descomenta cuando hayas implementado invertir_array
-    # invertido = invertir_array(VALORES_DECLARADOS)
-    # print(f"\n  Array invertido: {invertido}")
+    invertido = invertir_array(VALORES_DECLARADOS)
+    print(f"\n  Array invertido: {invertido}")
 
     print("\n  (función pendiente de implementar)")
 
+def medir_diferencia_vectorizacion(n=1_000_000):
+    """
+    Compara el tiempo de calcular el IVA con un ciclo for vs. con NumPy.
+
+    Construye una lista de n valores, calcula el IVA (valor * 0.19) con un
+    ciclo for sobre la lista y con una operación vectorizada sobre el array
+    equivalente, e imprime el tiempo de cada enfoque.
+
+    Args:
+        n (int): Cantidad de declaraciones a simular. Por defecto 1.000.000.
+
+    Ejemplo:
+        medir_diferencia_vectorizacion()
+        -> imprime el tiempo de cada enfoque y cuántas veces más rápido es NumPy.
+    """
+    lista = []
+    for i in range(n):
+        lista.append(float(i * 1000))
+    arr = np.array(lista, dtype=np.float64)
+
+    # --- Con ciclo for sobre lista ---
+    inicio = time.time()
+    iva_lista = []
+    for valor in lista:
+        iva_lista.append(valor * 0.19)
+    tiempo_lista = time.time() - inicio
+
+    # --- Con vectorización NumPy ---
+    inicio = time.time()
+    iva_array = arr * 0.19
+    tiempo_numpy = time.time() - inicio
+
+    print(f"Lista + ciclo for : {tiempo_lista:.4f} s")
+    print(f"Array NumPy       : {tiempo_numpy:.4f} s")
+    print(f"NumPy es {tiempo_lista / tiempo_numpy:.0f}x más rápido")
 
 def menu_vectorizacion():
     """Sección 3: vectorización."""
     print("\n--- Vectorización ---")
 
     # TODO: descomenta cuando hayas implementado calcular_iva_todos
-    # iva = calcular_iva_todos(VALORES_DECLARADOS)
-    # print("\n  IVA por declaración:")
-    # for i, (nit, valor, monto_iva) in enumerate(
-    #         zip(NITS, VALORES_DECLARADOS, iva)):
-    #     print(f"  {nit} | ${valor:>12,.0f} | IVA: ${monto_iva:>10,.0f}")
+    iva = calcular_iva_todos(VALORES_DECLARADOS)
+    print("\n  IVA por declaración:")
+    for i, (nit, valor, monto_iva) in enumerate(
+            zip(NITS, VALORES_DECLARADOS, iva)):
+        print(f"  {nit} | ${valor:>12,.0f} | IVA: ${monto_iva:>10,.0f}")
 
     # TODO: descomenta cuando hayas implementado calcular_valor_con_iva
-    # con_iva = calcular_valor_con_iva(VALORES_DECLARADOS)
-    # print(f"\n  Primeros 3 valores con IVA: {con_iva[:3]}")
+    con_iva = calcular_valor_con_iva(VALORES_DECLARADOS)
+    print(f"\n  Primeros 3 valores con IVA: {con_iva[:3]}")
 
     # TODO: descomenta cuando hayas implementado redondear_a_miles
-    # redondeados = redondear_a_miles(VALORES_DECLARADOS * 1.19)
-    # print(f"\n  Valores con IVA redondeados a miles: {redondeados}")
+    redondeados = redondear_a_miles(VALORES_DECLARADOS * 1.19)
+    print(f"\n  Valores con IVA redondeados a miles: {redondeados}")
 
     print("\n  (función pendiente de implementar)")
 
@@ -255,5 +291,34 @@ def main():
             print(f"\n  Opcion '{opcion}' no reconocida.")
 
 
+def carlos():
+    """
+        dada una lista con 5 elementos de tipo entero, haciendo usu de la repeticón for. muestra en pantalla la suma de estos 5 elementos,
+        para ello vamos a usar 2 formas de suma. Una con variables (de tipo acumulador).Y la segunda forma usando la instruccion sum.
+     
+    numeros =[1,2,3,4,5]
+    sum_numeros = 0
+    for num in numeros:
+        sum_numeros += num
+        print("Suma de cada iteración:", sum_numeros)
+    
+    print("Suma total final", sum_numeros)
+
+    #con la instruccion sum.
+    total = sum(numeros)
+    print("Suma con la instrucción sum: ", total) 
+
+    valores = [1_500_000, 850_000, 2_300_000]
+    for valor in valores:
+        print(valor)
+
+    iva = []
+    for valor in valores:
+        iva.append(valor * 0.19)
+    # resultado: [285000.0, 161500.0, 0.0, 437000.0]
+    print("los datos con el iva: ", iva)
+ """
+    
 if __name__ == "__main__":
+    medir_diferencia_vectorizacion()
     main()
