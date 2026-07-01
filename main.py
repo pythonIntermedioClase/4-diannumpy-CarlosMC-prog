@@ -148,6 +148,13 @@ def menu_vectorizacion():
     redondeados = redondear_a_miles(VALORES_DECLARADOS * 1.19)
     print(f"\n  Valores con IVA redondeados a miles: {redondeados}")
 
+    
+    tasas = np.array([0.19, 0.05, 0.0, 0.19, 0.05, 0.19, 0.0, 0.05])
+    valores = np.array([100, 200, 300, 400, 500, 600, 700, 800])
+    resultado = calcular_iva_todos(valores, tasas)
+    print(f"resultado:  {resultado}")
+
+
     print("\n  (función pendiente de implementar)")
 
 
@@ -156,24 +163,24 @@ def menu_ufuncs():
     print("\n--- Funciones universales ---")
 
     # TODO: descomenta cuando hayas implementado calcular_variacion_absoluta
-    # valores_anterior = np.array([
-    #     1_200_000, 900_000, 0, 2_100_000,
-    #     800_000, 3_000_000, 500_000, 1_000_000,
-    # ], dtype=np.float64)
-    # variacion = calcular_variacion_absoluta(VALORES_DECLARADOS, valores_anterior)
-    # print("\n  Variación absoluta respecto al período anterior:")
-    # for nit, var in zip(NITS, variacion):
-    #     print(f"  {nit} | ${var:>10,.0f}")
+    valores_anterior = np.array([
+        1_200_000, 900_000, 0, 2_100_000,
+        800_000, 3_000_000, 500_000, 1_000_000,
+    ], dtype=np.float64)
+    variacion = calcular_variacion_absoluta(VALORES_DECLARADOS, valores_anterior)
+    print("\n  Variación absoluta respecto al período anterior:")
+    for nit, var in zip(NITS, variacion):
+        print(f"  {nit} | ${var:>10,.0f}")
 
     # TODO: descomenta cuando hayas implementado normalizar_valores
-    # normalizados = normalizar_valores(VALORES_DECLARADOS)
-    # print("\n  Valores normalizados [0-1]:")
-    # for nit, norm in zip(NITS, normalizados):
-    #     print(f"  {nit} | {norm:.3f}")
+    normalizados = normalizar_valores(VALORES_DECLARADOS)
+    print("\n  Valores normalizados [0-1]:")
+    for nit, norm in zip(NITS, normalizados):
+        print(f"  {nit} | {norm:.3f}")
 
     # TODO: descomenta cuando hayas implementado aplicar_raiz_cuadrada
-    # raices = aplicar_raiz_cuadrada(VALORES_DECLARADOS)
-    # print(f"\n  Raíz cuadrada (primeros 3): {raices[:3]}")
+    raices = aplicar_raiz_cuadrada(VALORES_DECLARADOS)
+    print(f"\n  Raíz cuadrada (primeros 3): {raices[:3]}")
 
     print("\n  (función pendiente de implementar)")
 
@@ -183,32 +190,32 @@ def menu_boolean_arrays():
     print("\n--- Arrays booleanos ---")
 
     # TODO: descomenta cuando hayas implementado contar_con_ciclo y sumar_con_ciclo
-    # valores_lista = [1_500_000, 850_000, 0, 2_300_000,
-    #                  950_000, 3_200_000, 450_000, 1_100_000]
-    # umbral = 1_000_000
-    # cantidad = contar_con_ciclo(valores_lista, umbral)
-    # total = sumar_con_ciclo(valores_lista)
-    # print(f"\n  contar_con_ciclo:           {cantidad}")
-    # print(f"  np.sum(arr > umbral):       {contar_sobre_umbral(VALORES_DECLARADOS, umbral)}")
-    # print(f"\n  sumar_con_ciclo:            {total}")
-    # print(f"  np.sum(arr):                {np.sum(VALORES_DECLARADOS)}")
+    valores_lista = [1_500_000, 850_000, 0, 2_300_000,
+                     950_000, 3_200_000, 450_000, 1_100_000]
+    umbral = 1_000_000
+    cantidad = contar_con_ciclo(valores_lista, umbral)
+    total = sumar_con_ciclo(valores_lista)
+    print(f"\n  contar_con_ciclo:           {cantidad}")
+    print(f"  np.sum(arr > umbral):       {contar_sobre_umbral(VALORES_DECLARADOS, umbral)}")
+    print(f"\n  sumar_con_ciclo:            {total}")
+    print(f"  np.sum(arr):                {np.sum(VALORES_DECLARADOS)}")
 
     # TODO: descomenta cuando hayas implementado obtener_mascara_mora
-    # mascara = obtener_mascara_mora(DIAS_MORA)
-    # print(f"\n  Máscara de mora: {mascara}")
-    # print(f"  Registros en mora: {np.sum(mascara)} de {len(mascara)}")
+    mascara = obtener_mascara_mora(DIAS_MORA)
+    print(f"\n  Máscara de mora: {mascara}")
+    print(f"  Registros en mora: {np.sum(mascara)} de {len(mascara)}")
 
     # TODO: descomenta cuando hayas implementado filtrar_valores_con_mora
-    # en_mora = filtrar_valores_con_mora(VALORES_DECLARADOS, DIAS_MORA)
-    # print(f"\n  Valores declarados con mora:")
-    # for valor in en_mora:
-    #     print(f"    ${valor:,.0f}")
-    # print(f"  Total en riesgo: ${en_mora.sum():,.0f}")
+    en_mora = filtrar_valores_con_mora(VALORES_DECLARADOS, DIAS_MORA)
+    print(f"\n  Valores declarados con mora:")
+    for valor in en_mora:
+        print(f"    ${valor:,.0f}")
+    print(f"  Total en riesgo: ${en_mora.sum():,.0f}")
 
     # TODO: descomenta cuando hayas implementado contar_sobre_umbral
-    # umbral = 1_000_000
-    # cantidad = contar_sobre_umbral(VALORES_DECLARADOS, umbral)
-    # print(f"\n  Registros sobre ${umbral:,}: {cantidad}")
+    umbral = 1_000_000
+    cantidad = contar_sobre_umbral(VALORES_DECLARADOS, umbral)
+    print(f"\n  Registros sobre ${umbral:,}: {cantidad}")
 
     print("\n  (función pendiente de implementar)")
 
@@ -218,28 +225,28 @@ def menu_np_where():
     print("\n--- np.where ---")
 
     # TODO: descomenta cuando hayas implementado clasificar_valores_vectorizado
-    # categorias = clasificar_valores_vectorizado(VALORES_DECLARADOS)
-    # print("\n  Clasificación de declaraciones:")
-    # for nit, valor, cat in zip(NITS, VALORES_DECLARADOS, categorias):
-    #     print(f"  {nit} | ${valor:>12,.0f} | {cat}")
+    categorias = clasificar_valores_vectorizado(VALORES_DECLARADOS)
+    print("\n  Clasificación de declaraciones:")
+    for nit, valor, cat in zip(NITS, VALORES_DECLARADOS, categorias):
+        print(f"  {nit} | ${valor:>12,.0f} | {cat}")
 
     # TODO: descomenta cuando hayas implementado aplicar_descuento_vectorizado
-    # pagos_voluntarios = np.array([True, False, False, True,
-    #                               False, True, False, False])
-    # con_descuento = aplicar_descuento_vectorizado(
-    #     VALORES_DECLARADOS, pagos_voluntarios)
-    # print("\n  Valores con descuento voluntario:")
-    # for nit, original, final, voluntario in zip(
-    #         NITS, VALORES_DECLARADOS, con_descuento, pagos_voluntarios):
-    #     marca = " ← descuento 10%" if voluntario else ""
-    #     print(f"  {nit} | ${original:>12,.0f} → ${final:>12,.0f}{marca}")
+    pagos_voluntarios = np.array([True, False, False, True,
+                                  False, True, False, False])
+    con_descuento = aplicar_descuento_vectorizado(
+        VALORES_DECLARADOS, pagos_voluntarios)
+    print("\n  Valores con descuento voluntario:")
+    for nit, original, final, voluntario in zip(
+            NITS, VALORES_DECLARADOS, con_descuento, pagos_voluntarios):
+        marca = " ← descuento 10%" if voluntario else ""
+        print(f"  {nit} | ${original:>12,.0f} → ${final:>12,.0f}{marca}")
 
     # TODO: descomenta cuando hayas implementado calcular_sanciones_vectorizadas
-    # sanciones = calcular_sanciones_vectorizadas(VALORES_DECLARADOS, DIAS_MORA)
-    # print("\n  Sanciones calculadas:")
-    # for nit, valor, dias, sancion in zip(
-    #         NITS, VALORES_DECLARADOS, DIAS_MORA, sanciones):
-    #     print(f"  {nit} | {dias:>3} días | ${sancion:>10,.0f}")
+    sanciones = calcular_sanciones_vectorizadas(VALORES_DECLARADOS, DIAS_MORA)
+    print("\n  Sanciones calculadas:")
+    for nit, valor, dias, sancion in zip(
+            NITS, VALORES_DECLARADOS, DIAS_MORA, sanciones):
+        print(f"  {nit} | {dias:>3} días | ${sancion:>10,.0f}")
 
     print("\n  (función pendiente de implementar)")
 
